@@ -32,26 +32,26 @@ function App() {
       };
       return {
         ...prevState,
+        selectedProject: undefined,
         projects: [...prevState.projects, newProject],
-        // selectedProject: newProject.id
       };
     })
-    }
-
-
-  console.log(projectsState);
+  }
 
   let content;
 
   if (projectsState.selectedProject === null) {
-    content = <NewProject onAdd={handleAddProject}/>;
+    content = <NewProject onAdd={handleAddProject} />;
   } else if (projectsState.selectedProject === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />;
   }
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar onStartAddProject={handleStartAddProject} />
+      <ProjectsSidebar
+        onStartAddProject={handleStartAddProject}
+        projects={projectsState.projects}
+      />
       {content}
     </main>
   );
